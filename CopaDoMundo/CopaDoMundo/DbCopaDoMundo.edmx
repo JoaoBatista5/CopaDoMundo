@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CopaDoMundoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Chaves">
+          <Key>
+            <PropertyRef Name="Id_Chave" />
+          </Key>
+          <Property Name="Id_Chave" Type="int" Nullable="false" />
+          <Property Name="Nome_Chave" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Jogos">
+          <Key>
+            <PropertyRef Name="Id_Jogo" />
+          </Key>
+          <Property Name="Id_Jogo" Type="int" Nullable="false" />
+          <Property Name="Id_Chave" Type="int" Nullable="false" />
+          <Property Name="Id_Time1" Type="int" Nullable="false" />
+          <Property Name="SalGols1" Type="int" Nullable="false" />
+          <Property Name="Id_Time2" Type="int" Nullable="false" />
+          <Property Name="SalGols2" Type="int" Nullable="false" />
+          <Property Name="Empatou" Type="bit" Nullable="false" />
+          <Property Name="SalPenalteTime1" Type="int" Nullable="false" />
+          <Property Name="SalPenalteTime2" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimesDaCopa">
+          <Key>
+            <PropertyRef Name="Id_Time" />
+          </Key>
+          <Property Name="Id_Time" Type="int" Nullable="false" />
+          <Property Name="Nome_Time" Type="nchar" MaxLength="210" />
+          <Property Name="Id_Chave" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="CopaDoMundoModelStoreContainer">
+          <EntitySet Name="Chaves" EntityType="Self.Chaves" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jogos" EntityType="Self.Jogos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimesDaCopa" EntityType="Self.TimesDaCopa" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CopaDoMundoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Chaves">
+          <Key>
+            <PropertyRef Name="Id_Chave" />
+          </Key>
+          <Property Name="Id_Chave" Type="Int32" Nullable="false" />
+          <Property Name="Nome_Chave" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="TimesDaCopa" Relationship="CopaDoMundoModel.ChavesTimesDaCopa" FromRole="Chaves" ToRole="TimesDaCopa" />
+          <NavigationProperty Name="Jogos" Relationship="CopaDoMundoModel.ChavesJogos" FromRole="Chaves" ToRole="Jogos" />
+        </EntityType>
+        <EntityType Name="Jogos">
+          <Key>
+            <PropertyRef Name="Id_Jogo" />
+          </Key>
+          <Property Name="Id_Jogo" Type="Int32" Nullable="false" />
+          <Property Name="Id_Chave" Type="Int32" Nullable="false" />
+          <Property Name="Id_Time1" Type="Int32" Nullable="false" />
+          <Property Name="SalGols1" Type="Int32" Nullable="false" />
+          <Property Name="Id_Time2" Type="Int32" Nullable="false" />
+          <Property Name="SalGols2" Type="Int32" Nullable="false" />
+          <Property Name="Empatou" Type="Boolean" Nullable="false" />
+          <Property Name="SalPenalteTime1" Type="Int32" Nullable="false" />
+          <Property Name="SalPenalteTime2" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chaves" Relationship="CopaDoMundoModel.ChavesJogos" FromRole="Jogos" ToRole="Chaves" />
+          <NavigationProperty Name="TimesDaCopa" Relationship="CopaDoMundoModel.TimesDaCopaJogos" FromRole="Jogos" ToRole="TimesDaCopa" />
+          <NavigationProperty Name="TimesDaCopa1" Relationship="CopaDoMundoModel.TimesDaCopaJogos1" FromRole="Jogos" ToRole="TimesDaCopa" />
+        </EntityType>
+        <EntityType Name="TimesDaCopa">
+          <Key>
+            <PropertyRef Name="Id_Time" />
+          </Key>
+          <Property Name="Id_Time" Type="Int32" Nullable="false" />
+          <Property Name="Nome_Time" Type="String" MaxLength="210" FixedLength="true" Unicode="true" />
+          <Property Name="Id_Chave" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chaves" Relationship="CopaDoMundoModel.ChavesTimesDaCopa" FromRole="TimesDaCopa" ToRole="Chaves" />
+          <NavigationProperty Name="Jogos" Relationship="CopaDoMundoModel.TimesDaCopaJogos" FromRole="TimesDaCopa" ToRole="Jogos" />
+          <NavigationProperty Name="Jogos1" Relationship="CopaDoMundoModel.TimesDaCopaJogos1" FromRole="TimesDaCopa" ToRole="Jogos" />
+        </EntityType>
+        <EntityContainer Name="CopaDoMundoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Chaves" EntityType="Self.Chaves" />
+          <EntitySet Name="Jogos" EntityType="Self.Jogos" />
+          <EntitySet Name="TimesDaCopa" EntityType="Self.TimesDaCopa" />
+          <AssociationSet Name="ChavesTimesDaCopa" Association="CopaDoMundoModel.ChavesTimesDaCopa">
+            <End Role="Chaves" EntitySet="Chaves" />
+            <End Role="TimesDaCopa" EntitySet="TimesDaCopa" />
+          </AssociationSet>
+          <AssociationSet Name="ChavesJogos" Association="CopaDoMundoModel.ChavesJogos">
+            <End Role="Chaves" EntitySet="Chaves" />
+            <End Role="Jogos" EntitySet="Jogos" />
+          </AssociationSet>
+          <AssociationSet Name="TimesDaCopaJogos" Association="CopaDoMundoModel.TimesDaCopaJogos">
+            <End Role="TimesDaCopa" EntitySet="TimesDaCopa" />
+            <End Role="Jogos" EntitySet="Jogos" />
+          </AssociationSet>
+          <AssociationSet Name="TimesDaCopaJogos1" Association="CopaDoMundoModel.TimesDaCopaJogos1">
+            <End Role="TimesDaCopa" EntitySet="TimesDaCopa" />
+            <End Role="Jogos" EntitySet="Jogos" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="ChavesTimesDaCopa">
+          <End Type="CopaDoMundoModel.Chaves" Role="Chaves" Multiplicity="1" />
+          <End Type="CopaDoMundoModel.TimesDaCopa" Role="TimesDaCopa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chaves">
+              <PropertyRef Name="Id_Chave" />
+            </Principal>
+            <Dependent Role="TimesDaCopa">
+              <PropertyRef Name="Id_Chave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChavesJogos">
+          <End Type="CopaDoMundoModel.Chaves" Role="Chaves" Multiplicity="1" />
+          <End Type="CopaDoMundoModel.Jogos" Role="Jogos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chaves">
+              <PropertyRef Name="Id_Chave" />
+            </Principal>
+            <Dependent Role="Jogos">
+              <PropertyRef Name="Id_Chave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TimesDaCopaJogos">
+          <End Type="CopaDoMundoModel.TimesDaCopa" Role="TimesDaCopa" Multiplicity="1" />
+          <End Type="CopaDoMundoModel.Jogos" Role="Jogos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimesDaCopa">
+              <PropertyRef Name="Id_Time" />
+            </Principal>
+            <Dependent Role="Jogos">
+              <PropertyRef Name="Id_Time1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TimesDaCopaJogos1">
+          <End Type="CopaDoMundoModel.TimesDaCopa" Role="TimesDaCopa" Multiplicity="1" />
+          <End Type="CopaDoMundoModel.Jogos" Role="Jogos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimesDaCopa">
+              <PropertyRef Name="Id_Time" />
+            </Principal>
+            <Dependent Role="Jogos">
+              <PropertyRef Name="Id_Time2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CopaDoMundoModelStoreContainer" CdmEntityContainer="CopaDoMundoEntities">
+          <EntitySetMapping Name="Chaves">
+            <EntityTypeMapping TypeName="CopaDoMundoModel.Chaves">
+              <MappingFragment StoreEntitySet="Chaves">
+                <ScalarProperty Name="Id_Chave" ColumnName="Id_Chave" />
+                <ScalarProperty Name="Nome_Chave" ColumnName="Nome_Chave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jogos">
+            <EntityTypeMapping TypeName="CopaDoMundoModel.Jogos">
+              <MappingFragment StoreEntitySet="Jogos">
+                <ScalarProperty Name="Id_Jogo" ColumnName="Id_Jogo" />
+                <ScalarProperty Name="Id_Chave" ColumnName="Id_Chave" />
+                <ScalarProperty Name="Id_Time1" ColumnName="Id_Time1" />
+                <ScalarProperty Name="SalGols1" ColumnName="SalGols1" />
+                <ScalarProperty Name="Id_Time2" ColumnName="Id_Time2" />
+                <ScalarProperty Name="SalGols2" ColumnName="SalGols2" />
+                <ScalarProperty Name="Empatou" ColumnName="Empatou" />
+                <ScalarProperty Name="SalPenalteTime1" ColumnName="SalPenalteTime1" />
+                <ScalarProperty Name="SalPenalteTime2" ColumnName="SalPenalteTime2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimesDaCopa">
+            <EntityTypeMapping TypeName="CopaDoMundoModel.TimesDaCopa">
+              <MappingFragment StoreEntitySet="TimesDaCopa">
+                <ScalarProperty Name="Id_Time" ColumnName="Id_Time" />
+                <ScalarProperty Name="Nome_Time" ColumnName="Nome_Time" />
+                <ScalarProperty Name="Id_Chave" ColumnName="Id_Chave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

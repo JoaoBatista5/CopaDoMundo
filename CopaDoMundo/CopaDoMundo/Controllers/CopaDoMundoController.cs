@@ -24,16 +24,16 @@ namespace CopaDoMundo.Controllers
         {
             try
             {
-                //CopaDoMundoEntities ce = new CopaDoMundoEntities();
+                CopaDoMundoEntities ce = new CopaDoMundoEntities();
 
-                //TimesDaCopa ti = new TimesDaCopa();
+                TimesDaCopa ti = new TimesDaCopa();
 
-                //ti.Nome_Time = form["Time1A"];
-                //ti.Id_Chave = 1;
-                ////ti.Id_Time = 1;
+                ti.Nome_Time = form["Time1A"];
+                ti.Id_Chave = 1;
+                //ti.Id_Time = 1;
 
-                //ce.TimesDaCopa.Add(ti);
-                //ce.SaveChanges();
+                ce.TimesDaCopa.Add(ti);
+                ce.SaveChanges();
             }
             catch (Exception ex)
             {

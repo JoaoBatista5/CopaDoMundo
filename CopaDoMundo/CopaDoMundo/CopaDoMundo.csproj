@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -147,15 +155,39 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Chaves.cs">
+      <DependentUpon>DbCopaDoMundo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CopaDoMundoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DbCopaDoMundo.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbCopaDoMundo.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbCopaDoMundo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbCopaDoMundo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbCopaDoMundo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbCopaDoMundo.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Jogos.cs">
+      <DependentUpon>DbCopaDoMundo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Chaves.cs" />
     <Compile Include="Models\Jogos.cs" />
     <Compile Include="Models\TimesDaCopa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimesDaCopa.cs">
+      <DependentUpon>DbCopaDoMundo.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\CopaDoMundo.mdf" />
@@ -164,6 +196,16 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DbCopaDoMundo.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DbCopaDoMundo.Context.cs</LastGenOutput>
+      <DependentUpon>DbCopaDoMundo.edmx</DependentUpon>
+    </Content>
+    <Content Include="DbCopaDoMundo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbCopaDoMundo.edmx</DependentUpon>
+      <LastGenOutput>DbCopaDoMundo.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -172,6 +214,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="DbCopaDoMundo.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbCopaDoMundo.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DbCopaDoMundo.edmx.diagram">
+      <DependentUpon>DbCopaDoMundo.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -201,7 +250,9 @@
     <Content Include="Views\CopaDoMundo\Escalacao.cshtml" />
     <Content Include="Views\CopaDoMundo\Partidas.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

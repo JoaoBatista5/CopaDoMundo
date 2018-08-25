@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fd3535cd7de749b9948f0cf2cc7c9e1a" Name="Diagram1">
+        <EntityTypeShape EntityType="CopaDoMundoModel.Chaves" Width="1.5" PointX="6.125" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CopaDoMundoModel.Jogos" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CopaDoMundoModel.TimesDaCopa" Width="1.5" PointX="6.25" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="CopaDoMundoModel.ChavesTimesDaCopa" />
+        <AssociationConnector Association="CopaDoMundoModel.ChavesJogos" />
+        <AssociationConnector Association="CopaDoMundoModel.TimesDaCopaJogos" />
+        <AssociationConnector Association="CopaDoMundoModel.TimesDaCopaJogos1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
