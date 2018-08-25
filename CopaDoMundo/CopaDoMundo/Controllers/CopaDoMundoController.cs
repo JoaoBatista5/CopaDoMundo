@@ -26,14 +26,40 @@ namespace CopaDoMundo.Controllers
             {
                 CopaDoMundoEntities ce = new CopaDoMundoEntities();
 
-                TimesDaCopa ti = new TimesDaCopa();
+                TimesDaCopa ti;
 
-                ti.Nome_Time = form["Time1A"];
-                ti.Id_Chave = 1;
-                //ti.Id_Time = 1;
+                List<Chaves> chaves = new List<Chaves>();
 
-                ce.TimesDaCopa.Add(ti);
-                ce.SaveChanges();
+                Chaves ch;
+
+                //var listaChaves = from c in ce.Chaves select c;
+
+                var listaChaves = ce.Chaves.Select(x => new {x.Id_Chave, x.Nome_Chave });
+
+                foreach (var item in listaChaves)
+                {
+                    ch = new Chaves();
+                    ch.Id_Chave = item.Id_Chave;
+                    ch.Nome_Chave = item.Nome_Chave;
+
+                    chaves.Add(ch);
+                }
+
+                int contaTimes = 1;
+
+                foreach (var i in chaves)
+                {
+                    for (int x = 1; x < 4; x++)
+                    {
+                        ti = new TimesDaCopa();
+                        ti.Nome_Time = form["Time" + x + i.Nome_Chave];
+                        ti.Id_Chave = i.Id_Chave;
+                        ti.Id_Time = contaTimes++;
+
+                        ce.TimesDaCopa.Add(ti);
+                        ce.SaveChanges();
+                    }
+                }
             }
             catch (Exception ex)
             {
