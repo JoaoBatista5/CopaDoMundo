@@ -23,6 +23,7 @@ namespace CopaDoMundo
         public bool Empatou { get; set; }
         public int SalPenalteTime1 { get; set; }
         public int SalPenalteTime2 { get; set; }
+        public int FaseJogo { get; set; }
     
         public virtual Chaves Chaves { get; set; }
         public virtual TimesDaCopa TimesDaCopa { get; set; }

@@ -3,5 +3,48 @@
     ViewBag.Title = "Partidas";
 }
 
-<h2>Partidas</h2>
-
+<h4>Partidas</h4>
+@using (Html.BeginForm("Partidas", "CopaDoMundo", FormMethod.Post))
+@model Jogos
+{
+    <table border="0">
+        <tr>
+            <td>
+                @Html.LabelFor()
+                <label>Time 1:</label> @Html.TextBox("Time1A", null, new { @class = "form-control" })
+                <label>Time 2:</label> @Html.TextBox("Time2A", null, new { @class = "form-control" })
+                <label>Time 3:</label> @Html.TextBox("Time3A", null, new { @class = "form-control" })
+                <label>Time 4:</label> @Html.TextBox("Time4A", null, new { @class = "form-control" })
+            </td>
+            <td width="150px"> </td>
+            <td>
+                <label>Time 1:</label> @Html.TextBox("Time1B", null, new { @class = "form-control" })
+                <label>Time 2:</label> @Html.TextBox("Time2B", null, new { @class = "form-control" })
+                <label>Time 3:</label> @Html.TextBox("Time3B", null, new { @class = "form-control" })
+                <label>Time 4:</label> @Html.TextBox("Time4B", null, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" height="150px">
+                @using (Html.BeginForm("Partidas", "CopaDoMundo", FormMethod.Post))
+                {
+                    <input type="submit" value="Salvar Escalação" />
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Time 1:</label> @Html.TextBox("Time1C", null, new { @class = "form-control" })
+                <label>Time 2:</label> @Html.TextBox("Time2C", null, new { @class = "form-control" })
+                <label>Time 3:</label> @Html.TextBox("Time3C", null, new { @class = "form-control" })
+                <label>Time 4:</label> @Html.TextBox("Time4C", null, new { @class = "form-control" })
+            </td>
+            <td width="150px"> </td>
+            <td>
+                <label>Time 1:</label> @Html.TextBox("Time1D", null, new { @class = "form-control" })
+                <label>Time 2:</label> @Html.TextBox("Time2D", null, new { @class = "form-control" })
+                <label>Time 3:</label> @Html.TextBox("Time3D", null, new { @class = "form-control" })
+                <label>Time 4:</label> @Html.TextBox("Time4D", null, new { @class = "form-control" })
+            </td>
+        </tr>
+    </table>
