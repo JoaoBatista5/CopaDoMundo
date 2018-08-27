@@ -22,6 +22,8 @@ namespace CopaDoMundo.Controllers
         [HttpPost]
         public ActionResult Partidas(FormCollection form)
         {
+            List<string> nomeTimes = new List<string>();
+
             try
             {
                 //-- Adicionando os times ao banco na tabela TimesDaCopa --//
@@ -126,20 +128,101 @@ namespace CopaDoMundo.Controllers
 
                 CopaDoMundoEntities ce3 = new CopaDoMundoEntities();
 
-                var listaJa = from c in ce3.Jogos select new { c.Id_Time1, c.Id_Time2} ;
+                //var listaJa = from c in ce3.Jogos select new { c.Id_Time1, c.Id_Time2} ;
 
-                List<string> nomeTimes = new List<string>();
+                var listaJa = from c in ce3.Jogos
+                              join d in ce3.TimesDaCopa on c.Id_Time1 equals d.Id_Time
+                              join x in ce3.TimesDaCopa on c.Id_Time2 equals x.Id_Time
+                              select new { time1 = d.Nome_Time, time2 = x.Nome_Time};
 
+                //List<string> nomeTimes = new List<string>();
 
+                foreach (var item in listaJa)
+                {
+                    nomeTimes.Add(item.time1 + " X " + item.time2);
+                }
+
+                ViewBag.ListaTimes = nomeTimes;
 
             }
             catch (Exception ex)
             {
 
             }
-
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ResultadoOitavas(FormCollection form)
+        {
+            try
+            {
+                CopaDoMundoEntities ce = new CopaDoMundoEntities();
+
+                var listaJa = from c in ce.Jogos select c;
+
+                //var vPontos = NumeroAleatorioPlacar();
+
+                foreach(var x in listaJa)
+                {
+                    var vPontos = NumeroAleatorioPlacar();
+
+                    //var listaJogo = ce.Jogos.Where(f => f.Id_Jogo == x.Id_Jogo).ToList();
+                    //listaJogo.ForEach(a => { a.SalGols1 = vPontos[0]; a.SalGols2 = vPontos[1]; });
+
+                    Jogos listaJogo = ce.Jogos.Single(f => f.Id_Jogo.Equals(x.Id_Jogo));
+
+                    listaJogo.SalGols1 = vPontos[0];
+                    listaJogo.SalGols2 = vPontos[1];
+                }
+                ce.SaveChanges();
+
+                CopaDoMundoEntities ce3 = new CopaDoMundoEntities();
+
+                //var listaJa = from c in ce3.Jogos select new { c.Id_Time1, c.Id_Time2} ;
+
+                var listaJb = from c in ce3.Jogos
+                              join d in ce3.TimesDaCopa on c.Id_Time1 equals d.Id_Time
+                              join x in ce3.TimesDaCopa on c.Id_Time2 equals x.Id_Time
+                              select new { time1 = d.Nome_Time, c.SalGols1, time2 = x.Nome_Time, c.SalGols2 };
+
+                List<string> nomeTimes = new List<string>();
+
+                foreach (var item in listaJb)
+                {
+                    nomeTimes.Add(item.time1 + " " + item.SalGols1 + " X " + item.SalGols2 + " " + item.time2);
+                }
+
+                ViewBag.ListaTimes = nomeTimes;
+
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            return View();
+        }
+        
+        public List<int> NumeroAleatorioPlacar()
+        {
+            var list = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            var rnd = new Random();
+
+            var query =
+                from i in list
+                let r = rnd.Next()
+                orderby r
+                select i;
+
+            var lista = query.ToList();
+
+            lista.RemoveRange(1, 9);
+
+            var shuffled = lista.ToList();
+
+            return shuffled;
+        }
     }
 }

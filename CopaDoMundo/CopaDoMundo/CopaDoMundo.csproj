@@ -249,6 +249,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\CopaDoMundo\Escalacao.cshtml" />
     <Content Include="Views\CopaDoMundo\Partidas.cshtml" />
+    <Content Include="Views\CopaDoMundo\ResultadoOitavas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

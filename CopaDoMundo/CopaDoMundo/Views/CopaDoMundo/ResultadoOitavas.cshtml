@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "ResultadoOitavas";
+}
+
+<h4>Resultado das Oitavas de Final:</h4>
+
+<table border="0">
+    <tr>
+        <td>
+            @{
+                foreach (string erro in ViewBag.ListaTimes)
+                {
+                    @erro
+                    <br />
+                    //@Html.TextBox(erro);
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" height="50px">
+            @using (Html.BeginForm("ResultadoOitavas", "CopaDoMundo", FormMethod.Post))
+            {
+                <input type="submit" value="Resultado das Oitavas" />
+            }
+        </td>
+    </tr>
+</table>
