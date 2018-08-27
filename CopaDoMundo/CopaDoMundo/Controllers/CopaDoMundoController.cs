@@ -126,16 +126,14 @@ namespace CopaDoMundo.Controllers
 
                 ce2.SaveChanges();
 
-                CopaDoMundoEntities ce3 = new CopaDoMundoEntities();
+                //-- Apresentando os jogos registrados no banco na view --//
 
-                //var listaJa = from c in ce3.Jogos select new { c.Id_Time1, c.Id_Time2} ;
+                CopaDoMundoEntities ce3 = new CopaDoMundoEntities();
 
                 var listaJa = from c in ce3.Jogos
                               join d in ce3.TimesDaCopa on c.Id_Time1 equals d.Id_Time
                               join x in ce3.TimesDaCopa on c.Id_Time2 equals x.Id_Time
                               select new { time1 = d.Nome_Time, time2 = x.Nome_Time};
-
-                //List<string> nomeTimes = new List<string>();
 
                 foreach (var item in listaJa)
                 {
@@ -161,14 +159,9 @@ namespace CopaDoMundo.Controllers
 
                 var listaJa = from c in ce.Jogos select c;
 
-                //var vPontos = NumeroAleatorioPlacar();
-
                 foreach(var x in listaJa)
                 {
                     var vPontos = NumeroAleatorioPlacar();
-
-                    //var listaJogo = ce.Jogos.Where(f => f.Id_Jogo == x.Id_Jogo).ToList();
-                    //listaJogo.ForEach(a => { a.SalGols1 = vPontos[0]; a.SalGols2 = vPontos[1]; });
 
                     Jogos listaJogo = ce.Jogos.Single(f => f.Id_Jogo.Equals(x.Id_Jogo));
 
@@ -178,8 +171,6 @@ namespace CopaDoMundo.Controllers
                 ce.SaveChanges();
 
                 CopaDoMundoEntities ce3 = new CopaDoMundoEntities();
-
-                //var listaJa = from c in ce3.Jogos select new { c.Id_Time1, c.Id_Time2} ;
 
                 var listaJb = from c in ce3.Jogos
                               join d in ce3.TimesDaCopa on c.Id_Time1 equals d.Id_Time
